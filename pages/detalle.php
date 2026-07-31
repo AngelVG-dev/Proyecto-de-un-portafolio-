@@ -1,8 +1,6 @@
 <?php
-// Recibimos el ID del proyecto desde la URL
 $id_proyecto = isset($_GET['id']) ? (int)$_GET['id'] : 1;
 
-// BASE DE DATOS ESTÁTICA (Tus proyectos originales con protecciones legales)
 $proyectos = [
     1 => [
         "titulo" => "Robot Limpiador: Ingeniería y Ergonomía",
@@ -153,13 +151,11 @@ $proyectoActual = isset($proyectos[$id_proyecto]) ? $proyectos[$id_proyecto] : $
     <h3 style="margin-bottom: 1.5rem; letter-spacing: 2px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; color: var(--texto-secundario);">Galería Visual</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;">
         
-        <!-- IMÁGENES ESTÁTICAS CON MARCA DE AGUA -->
         <?php if (count($proyectoActual['imagenes']) > 0): ?>
             <?php foreach($proyectoActual['imagenes'] as $img): ?>
                 <div style="position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--borde); background: var(--fondo-tarjetas); box-shadow: 0 4px 15px var(--sombra); height: 280px;">
                     <img src="<?php echo htmlspecialchars($img); ?>" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                     
-                    <!-- ETIQUETA LEGAL SUPERPUESTA PARA PROTEGER TUS RENDERS Y GRÁFICOS -->
                     <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: rgba(255,255,255,0.7); padding: 5px 10px; font-size: 0.75rem; border-radius: 4px; z-index: 10; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">
                         Concepto No Comercial
                     </div>

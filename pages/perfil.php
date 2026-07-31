@@ -6,13 +6,11 @@ if (session_status() === PHP_SESSION_NONE) {
 $esAdmin = isset($_SESSION['admin_id']);
 ?>
 <style>
-/* Estilo para los textos editables al pasar el mouse */
 [contenteditable="true"]:hover { background: rgba(255,255,255,0.05); cursor: text; border-radius: 4px; }
 </style>
 
 <div class="anim-deslizar" style="padding-bottom: 4rem; display: flex; flex-wrap: wrap; gap: 4rem; align-items: flex-start;">
     
-    <!-- Columna Izquierda: Biografía (EDITABLE PARA EL ADMINISTRADOR) -->
     <div style="flex: 1; min-width: 300px;">
         
         <h2 <?php if($esAdmin) echo 'contenteditable="true" data-tabla="perfil" data-columna="titulo" data-id="1" style="border-bottom: 2px dashed rgba(255,255,255,0.2); outline: none; transition: 0.3s;"'; ?> style="font-size: 2.8rem; margin-bottom: 1.5rem; letter-spacing: 1px;">
@@ -33,13 +31,11 @@ $esAdmin = isset($_SESSION['admin_id']);
 
     </div>
 
-    <!-- Columna Derecha: Habilidades con Logotipos (INTOCABLE - SOLO LECTURA) -->
     <div style="flex: 1; min-width: 300px;">
         <h3 style="font-size: 1.5rem; margin-bottom: 2rem; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--borde); padding-bottom: 1rem;">
             Software y Herramientas
         </h3>
         
-        <!-- Cuadrícula de Logos -->
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-bottom: 3rem;">
             
             <style>
