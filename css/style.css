@@ -1,0 +1,277 @@
+/* ==========================================================================
+   1. VARIABLES Y TEMAS (CLARO Y OSCURO)
+   ========================================================================== */
+:root {
+    --fondo-panel: #0a0a0b;
+    --fondo-contenido: #121214;
+    --fondo-tarjetas: #1a1a1e;
+    --texto-principal: #ffffff;
+    --texto-secundario: #888888;
+    --acento: #e5e5e5;
+    --borde: #222222;
+    --sombra: rgba(0, 0, 0, 0.5);
+    --error: #ff4a4a;
+    --exito: #27c93f;
+}
+
+body.tema-claro {
+    --fondo-panel: #ffffff;
+    --fondo-contenido: #f5f5f7;
+    --fondo-tarjetas: #ffffff;
+    --texto-principal: #1d1d1f;
+    --texto-secundario: #86868b;
+    --acento: #0056b3; 
+    --borde: #d2d2d7;
+    --sombra: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. RESETEO BÁSICO
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+body { display: flex; min-height: 100vh; background-color: var(--fondo-contenido); color: var(--texto-principal); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+
+/* ==========================================================================
+   3. DISEÑO DE ESCRITORIO (PANTALLA DIVIDIDA)
+   ========================================================================== */
+.panel-lateral {
+    width: 35%;
+    background-color: var(--fondo-panel);
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 3rem;
+    border-right: 1px solid var(--borde);
+    z-index: 50;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.cabecera-lateral h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: 1px; font-weight: 600; }
+.cabecera-lateral p { color: var(--texto-secundario); font-weight: 400; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+
+/* --- Navegación (BOTONES MASIVOS Y ABAJO) --- */
+.navegacion-principal { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.btn-nav {
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 1.6rem; /* Botones mucho más grandes */
+    font-weight: 700;  /* Letra super gruesa para destacar */
+    color: var(--texto-secundario);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    padding: 12px 0;
+}
+
+.linea-indicadora {
+    display: inline-block;
+    width: 0;
+    height: 4px; /* Línea mucho más notoria */
+    background-color: var(--acento);
+    margin-right: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-nav:hover .linea-indicadora, 
+.btn-nav.activo .linea-indicadora {
+    width: 40px; 
+    margin-right: 15px;
+}
+
+.btn-nav:hover, 
+.btn-nav.activo {
+    color: var(--texto-principal);
+    transform: translateX(8px);
+}
+
+.btn-descarga {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 14px 28px;
+    border: 2px solid var(--texto-secundario);
+    text-decoration: none;
+    color: var(--texto-secundario);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: max-content;
+}
+
+.btn-descarga:hover {
+    background-color: var(--texto-principal);
+    color: var(--fondo-panel);
+    border-color: var(--texto-principal);
+    transform: translateY(-2px);
+}
+
+.btn-admin-link {
+    display: inline-block;
+    color: var(--texto-secundario);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: left;
+    background-color: transparent;
+}
+
+.btn-admin-link:hover {
+    background-color: var(--fondo-tarjetas);
+    color: var(--texto-principal);
+    border-color: var(--acento);
+    transform: translateY(-2px);
+}
+
+/* --- BOTÓN FLOTANTE TEMA CLARO/OSCURO (Garantizado Visible) --- */
+.btn-flotante-tema {
+    position: fixed;
+    top: 2.5rem;
+    right: 3.5rem;
+    z-index: 9999; /* Máxima prioridad para que nada lo oculte */
+    padding: 16px; /* Botón más grande */
+    border-radius: 50%;
+    background-color: var(--fondo-tarjetas);
+    color: var(--texto-principal);
+    border: 2px solid var(--borde); /* Borde más notorio */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-flotante-tema:hover {
+    transform: scale(1.15);
+    border-color: var(--acento);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.8);
+}
+
+.icono-tema {
+    width: 30px; /* Íconos grandotes para que destaquen */
+    height: 30px;
+}
+
+.oculto { display: none !important; }
+
+/* Panel Derecho Dinámico */
+.panel-contenido { width: 65%; margin-left: 35%; padding: 4rem; min-height: 100vh; }
+.menu-hamburguesa { display: none; }
+
+/* ==========================================================================
+   4. GALERÍA DE PROYECTOS Y DIBUJOS
+   ========================================================================== */
+.grid-galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+.item-galeria { background-color: var(--fondo-tarjetas); border-radius: 10px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; border: 1px solid var(--borde); display: flex; flex-direction: column; }
+.item-galeria:hover { transform: translateY(-5px); box-shadow: 0 15px 30px var(--sombra); border-color: var(--texto-secundario); }
+.item-galeria img { width: 100%; height: 250px; object-fit: cover; display: block; border-bottom: 1px solid var(--borde); }
+.item-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+/* ==========================================================================
+   5. ANIMACIONES EXCLUSIVAS
+   ========================================================================== */
+.fade-in { animation: aparecer 0.4s ease-out forwards; } @keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+.anim-subir { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; } @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.anim-deslizar { animation: slideRight 0.5s ease-out forwards; } @keyframes slideRight { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+.anim-escala { animation: scaleIn 0.5s ease-out forwards; } @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.anim-enfoque { animation: blurIn 0.6s ease-out forwards; } @keyframes blurIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+
+/* ==========================================================================
+   6. RESPONSIVO MÓVIL
+   ========================================================================== */
+@media (max-width: 900px) {
+    body { flex-direction: column; }
+    .panel-lateral { width: 100%; height: auto; position: sticky; top: 0; padding: 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--borde); background: var(--fondo-panel); background-color: color-mix(in srgb, var(--fondo-panel) 90%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .cabecera-lateral { display: flex; justify-content: space-between; align-items: center; }
+    .cabecera-lateral h1 { font-size: 1.8rem; margin-bottom: 0; }
+    .cabecera-lateral p { display: none; }
+    .menu-hamburguesa { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+    .menu-hamburguesa span { width: 25px; height: 2px; background-color: var(--texto-principal); transition: 0.3s ease; border-radius: 2px; }
+    .navegacion-principal { display: none; padding-top: 2rem; padding-bottom: 1rem; }
+    .btn-nav { font-size: 1.5rem; padding: 10px 0; }
+    .panel-contenido { width: 100%; margin-left: 0; padding: 2rem 1.5rem; min-height: calc(100vh - 80px); }
+    .grid-galeria { grid-template-columns: 1fr; }
+    
+    .contenedor-inferior-lateral { margin-top: 2rem !important; }
+    .btn-flotante-tema { top: 1.5rem; right: 5rem; padding: 10px; }
+    .icono-tema { width: 20px; height: 20px; }
+}
+
+/* ==========================================================================
+   7. MODAL DE IMAGEN (LIGHTBOX)
+   ========================================================================== */
+
+/* Cursor especial para indicar que la imagen se puede agrandar */
+.imagen-ampliable {
+    cursor: zoom-in;
+}
+
+/* Contenedor del fondo oscuro */
+.modal {
+    display: none; 
+    position: fixed;
+    /* Z-index exageradamente alto para tapar el panel lateral y el botón de tema */
+    z-index: 99999; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* Fondo oscuro fijo sin importar si es tema claro u oscuro */
+    background-color: rgba(0, 0, 0, 0.9); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* La imagen en grande */
+.modal-contenido {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh; /* Evita que la imagen se salga del alto de la pantalla */
+    margin-top: 7.5vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    /* Reutilizamos tu animación 'scaleIn' para que aparezca suavemente */
+    animation: scaleIn 0.3s ease-out forwards; 
+}
+
+/* El botón de cerrar (La X) */
+.cerrar-modal {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    z-index: 100000;
+}
+
+/* Al pasar el mouse usamos tu variable de color rojo para los errores */
+.cerrar-modal:hover {
+    color: var(--error); 
+    transform: scale(1.1);
+}
+
+/* Ajustes para que se vea bien en celular */
+@media (max-width: 900px) {
+    .modal-contenido {
+        max-width: 95%;
+        margin-top: 15vh;
+    }
+    .cerrar-modal {
+        top: 10px;
+        right: 20px;
+        font-size: 40px;
+    }
+}
